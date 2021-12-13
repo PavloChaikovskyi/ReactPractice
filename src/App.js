@@ -14,20 +14,17 @@ function App() {
     {id: 3, title: 'Php', body: 'Desc'},
   ])
 
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
+  const [post, setPost] = useState({
+    title: '',
+    body: '',
+  })
+  
 
 
    const addNewPost = (e) => {
     e.preventDefault();
-   const newPost = {
-     id: Date.now(),
-     title,
-     body
-   }
-   setPosts([...posts, newPost])
-   setTitle('');
-   setBody('');
+   setPosts([...posts, {...post, id: Date.now()}])
+   setPost({    title: '', body: ''})
   }
 
   return (
@@ -36,15 +33,15 @@ function App() {
 
         {/* Управляемий компонент / Controlable component */}
         <MyInput
-            value={title}
-            onChange={e => setTitle(e.target.value)}
+            value={post.title}
+            onChange={e => setPost({...post, title: e.target.value})}
             type="text"
             placeholder="Post Name"
           />
           {/* Неуправляемий инпут / Uncontrolable input  */}
         <MyInput 
-          value={body}
-          onChange={e => setBody(e.target.value)}
+          value={post.body}
+          onChange={e => setPost({...post, body: e.target.value})}
           type="text" 
           placeholder="Post Desc"
          />
