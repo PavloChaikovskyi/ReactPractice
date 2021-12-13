@@ -4,8 +4,9 @@ import React, { useState } from "react"; // add to every file with component
 import './styles/App.css';
 // import PostItem from "./components/PostItem"
 import PostList from "./components/PostList";
-import MyButton from "./components/UI/button/MyButton";
-import MyInput from "./components/UI/input/MyInput";
+// import MyButton from "./components/UI/button/MyButton";
+// import MyInput from "./components/UI/input/MyInput";
+import PostForm from "./components/PostForm";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -14,41 +15,15 @@ function App() {
     {id: 3, title: 'Php', body: 'Desc'},
   ])
 
-  const [post, setPost] = useState({
-    title: '',
-    body: '',
-  })
-  
-
-
-   const addNewPost = (e) => {
-    e.preventDefault();
-   setPosts([...posts, {...post, id: Date.now()}])
-   setPost({    title: '', body: ''})
+  const createPost = (newPost) => {
+    setPosts( [...posts, newPost])
   }
 
   return (
     <div className="App">      
-    <form action="">
-
-        {/* Управляемий компонент / Controlable component */}
-        <MyInput
-            value={post.title}
-            onChange={e => setPost({...post, title: e.target.value})}
-            type="text"
-            placeholder="Post Name"
-          />
-          {/* Неуправляемий инпут / Uncontrolable input  */}
-        <MyInput 
-          value={post.body}
-          onChange={e => setPost({...post, body: e.target.value})}
-          type="text" 
-          placeholder="Post Desc"
-         />
-        <MyButton onClick={addNewPost}>Create post</MyButton>
-      </form>  
+      <PostForm create={createPost} />
       <PostList posts={posts} title={'Post List 1'}/>
-     </div>
+    </div>
   );
 }
 
