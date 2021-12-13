@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"; // add to every file with component
+import React, { useState } from "react"; // add to every file with component
 // import Counter from "./components/Counter";
 // import ClassCounter from "./components/ClassCounter";
 import './styles/App.css';
@@ -15,11 +15,19 @@ function App() {
   ])
 
   const [title, setTitle] = useState('')
-  const bodyInputRef = useRef(); 
-  const addNewPost = (e) => {
+  const [body, setBody] = useState('')
+
+
+   const addNewPost = (e) => {
     e.preventDefault();
-    console.log(title);
-    console.log(bodyInputRef.current.value);
+   const newPost = {
+     id: Date.now(),
+     title,
+     body
+   }
+   setPosts([...posts, newPost])
+   setTitle('');
+   setBody('');
   }
 
   return (
@@ -35,7 +43,8 @@ function App() {
           />
           {/* Неуправляемий инпут / Uncontrolable input  */}
         <MyInput 
-          ref={bodyInputRef}
+          value={body}
+          onChange={e => setBody(e.target.value)}
           type="text" 
           placeholder="Post Desc"
          />
