@@ -13,6 +13,7 @@ import MyModal from "./components/UI/MyModal/MyModal";
 import { usePosts } from "./hooks/usePosts";
 // import axios from "axios";
 import PostService from "./API/PostService";
+import Loader from "./components/UI/loader/Loader";
 
 function App() {
   const [posts, setPosts] = useState([])
@@ -36,7 +37,7 @@ function App() {
      const posts = await PostService.getAll()
      setPosts(posts)
      setIsPostsLoading(false)
-    }, 1000)
+    }, 10000)
   }
 
   // get post from child component 
@@ -62,7 +63,7 @@ function App() {
       />
 
       {isPostsLoading
-      ? <h1>Loading...</h1>
+      ? <Loader />
       : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'Post List 1'}/>
       }
       
