@@ -37,7 +37,7 @@ function App() {
      const posts = await PostService.getAll()
      setPosts(posts)
      setIsPostsLoading(false)
-    }, 10000)
+    }, 1000)
   }
 
   // get post from child component 
@@ -63,7 +63,7 @@ function App() {
       />
 
       {isPostsLoading
-      ? <Loader />
+      ? <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}><Loader /></div>
       : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'Post List 1'}/>
       }
       
