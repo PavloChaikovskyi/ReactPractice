@@ -1,4 +1,4 @@
-import React, { useState } from "react"; // add to every file with component
+import React, { useEffect, useState } from "react"; // add to every file with component
 // import Counter from "./components/Counter";
 // import ClassCounter from "./components/ClassCounter";
 import './styles/App.css';
@@ -18,6 +18,10 @@ function App() {
   const [filter, setFilter] = useState({sort:'', query: ''})
   const [modal, setModal] = useState(false)
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
 
   const createPost = (newPost) => {
     setPosts( [...posts, newPost])
