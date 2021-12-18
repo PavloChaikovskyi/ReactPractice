@@ -18,7 +18,8 @@ function App() {
   const [posts, setPosts] = useState([])
   const [filter, setFilter] = useState({sort:'', query: ''})
   const [modal, setModal] = useState(false)
-  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
+  const [isPostsLoading, setIsPostsLoading] = useState(false)
 
   useEffect(() => {
     fetchPosts()
@@ -30,8 +31,12 @@ function App() {
   }
 
   async function fetchPosts() {
+    setIsPostsLoading(true)
+    setTimeout( async () => {
      const posts = await PostService.getAll()
-      setPosts(posts)
+     setPosts(posts)
+     setIsPostsLoading(false)
+    }, 1000)
   }
 
   // get post from child component 
@@ -55,7 +60,12 @@ function App() {
         filter={filter}  
         setFilter={setFilter}
       />
-      <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'Post List 1'}/>
+
+      {isPostsLoading
+      ? <h1>Loading...</h1>
+      : <PostList remove={removePost} posts={sortedAndSearchedPosts} title={'Post List 1'}/>
+      }
+      
     </div>
   );
 }
