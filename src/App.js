@@ -16,7 +16,7 @@ import PostService from "./API/PostService";
 import Loader from "./components/UI/loader/Loader";
 import { useFetching } from "./hooks/useFetching";
 import { getPageCount, getPagesArray } from "./components/utils/pages";
-
+import Pagination from "./components/UI/pagination/Pagination";
 
 function App() {
   const [posts, setPosts] = useState([])
